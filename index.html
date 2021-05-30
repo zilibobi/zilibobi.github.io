@@ -2,8 +2,79 @@
 <html>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
+
 <title>Home</title>
-<p>
-hi
-</p>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: #141a20;
+    }
+
+    .navBar {
+        font-family: 'Overpass', sans-serif;
+    }
+
+    ul {
+        font-family: 'Overpass', sans-serif;
+        float: right;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    body header {
+        background-color: #0d1116;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+        height: 50px;
+        box-shadow: 0px 0px 5px black;
+    }
+
+    ul a {
+        text-decoration: none;
+        color: #fff;
+        transition: 0.3s;
+        padding: 20px;
+        font-size: 18px;
+    }
+
+    .textLogo {
+        float: left;
+        padding: 10px 30px;
+        vertical-align: middle;
+    }
+
+    .textLogo a {
+        text-decoration: none;
+        color: #fff;
+        transition: 0.3s;
+        font-size: 26px;
+        text-align: center;
+    }
+
+    ul a:hover {
+        color: #c4c4c4;
+    }
+
+</style> 
+
+<body>
+    <header>
+        <div class="navBar">
+            <div class="textLogo"><a href="#">zilibobi</a></div>
+            <ul>
+                <a href="#">Home</a>
+                <a href="projects">Projects</a>
+                <a href="community">Community</a>
+            </ul>
+        </div>
+    </header>
+</body>
 </html>
