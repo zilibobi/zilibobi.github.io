@@ -21,6 +21,7 @@
 body {
   font-family: 'Overpass', sans-serif;
   margin: 0;
+  transition: 0.4s ease-out;
 }
 
 .header {
@@ -66,6 +67,7 @@ a:hover {
   flex: 70%;
   background-color: #ffffff;
   padding: 20px;
+  transition: 0.3s ease-out;
 }
 
 .main h2 {
@@ -86,6 +88,9 @@ img {
   width: 100%;
   height: auto;
   max-width: 640px;
+  animation: fade-in ease-out 0.6s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 footer {
@@ -127,6 +132,10 @@ footer {
   }
 }
 
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 </style>
 </head>
 
@@ -135,7 +144,7 @@ footer {
   <button class="btn dark-mode-button" onclick="changeLight()" id="btnModeSwitch">Dark Mode</button>
   <h1>My Portfolio</h1>
   <a href="https://www.roblox.com/users/617750257/profile">Roblox</a>
-  <a href="discord.html">Discord</a>
+  <a href="https://discord.gg/QnvWtxayKw">Discord</a>
   <a href="https://github.com/zilibobi">Github</a>
 </div>
 <div class="row">
