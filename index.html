@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<meta property="og:url" content="https://zilibobi.github.io">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/blood_drop.png">
+<meta property="og:description" content="View all of my work.">
+<meta property="og:title" content="My Portfolio">
+<meta name="description" content="View all of my work.">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
 
@@ -60,27 +67,40 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  align-items: center;
+  -ms-align-items: center;
+  flex-direction: column;
 }
 
 .main {   
-  -ms-flex: 70%;
-  flex: 70%;
-  background-color: #ffffff;
+  -ms-flex: 50%;
+  flex: 50%;
   padding: 20px;
   transition: 0.3s ease-out;
+  background: none;
 }
 
 .main h2 {
   font-size: 30px;
+  max-width: 650px;
 }
 
 .main h3 {
   font-size: 17px;
   color: #8d8d8d;
+  max-width: 650px;
 }
 
 .main p {
   max-width: 650px;
+  text-align: center;
+}
+
+.side {
+  -ms-flex: 50%;
+  flex: 50%;
+  background-color: #f1f1f1;
+  padding: 20px;
 }
 
 img {
@@ -156,10 +176,14 @@ footer {
 </div>
 <div class="row">
   <div class="main" id="main">
-    <h2>Blood Dropping System</h2>
+    <h2>Blood Puddle Dropping System</h2>
     <h3><i>Commission, 15/6/2021</i></h3>
     <img src="images/blood_drop.png" id="blood_drop" onload="document.getElementById('blood_drop').style.opacity='1'">
-    <p>This is a commissioned blood puddle dropping system with blur effect. It's using raycasting and mesh parts. Blur effect and puddles are starting appearing when humanoid's health is less than 40. You can visit <a href="https://www.roblox.com/games/6950181427/">demo</a> place here.</p>
+    <p>This is a commissioned blood puddle dropping system with a blur effect. It's using raycasting and mesh parts. Blur effect and puddles are starting appearing when humanoid's health is less than 40. You can visit the <a href="https://www.roblox.com/games/6950181427/">demo</a> place here.</p>
+    <h2>Leveling and Rank System</h2>
+    <h3><i>Commission, 15/6/2021</i></h3>
+    <img src="images/rank_level_system.png" id="rank_level" onload="document.getElementById('rank_level').style.opacity='1'">
+    <p>A commissioned leveling, rank, XP, health system in a billboard GUI with proper data saving and error handling & reporting w/ Discord webhooks! You can visit the <a href="https://www.roblox.com/games/6863047249/">demo</a> place here.</p>
   </div>
 <footer>
   <p>© 2021 • zilibobi • All rights reserved</p>
@@ -182,8 +206,6 @@ function setBColor(elmId, clr) {
     document.getElementById("btnModeSwitch").innerHTML = "Light Mode";
     document.body.style.backgroundColor = "#262736";
     document.body.style.color = "#fff";
-    setColor("main", "#ffffff");
-    setBColor("main", "#262736");
   } else { 
     document.getElementById("btnModeSwitch").innerHTML = "Dark Mode";
   }
@@ -194,15 +216,11 @@ function changeLight() {
     localStorage.setItem("mode", "light")
     document.body.style.backgroundColor = "#fff";
     document.body.style.color = "black";
-    setColor("main", "black");
-    setBColor("main", "#fff");
     document.getElementById("btnModeSwitch").innerHTML = "Dark Mode";
   } else {
     localStorage.setItem("mode", "dark")
     document.body.style.backgroundColor = "#262736";
     document.body.style.color = "#fff";
-    setColor("main", "#fff");
-    setBColor("main", "#262736");
     document.getElementById("btnModeSwitch").innerHTML = "Light Mode";
   }
 }
