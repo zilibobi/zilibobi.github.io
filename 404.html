@@ -17,8 +17,7 @@
 header {
   font-family: 'Overpass', sans-serif;
   text-align: center;
-  font-size: 50px;
-  color: #ffffff;
+  font-size: 30px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -30,9 +29,6 @@ body {
   font-family: 'Overpass', sans-serif;
   margin: 10px;
   text-align: center;
-  color: #ffffff;
-  font-size: 30px;
-  background-color: #23252b;
 }
 a {
   text-decoration: none;
@@ -68,6 +64,9 @@ function setBColor(elmId, clr) {
   if (localStorage.getItem("mode") === "dark") {
     document.body.style.backgroundColor = "#262736";
     document.body.style.color = "#fff";
+  } else {
+    document.body.style.backgroundColor = "#fff";
+    document.body.style.color = "#000";
   }
 })();
 </script>

@@ -88,9 +88,8 @@ img {
   width: 100%;
   height: auto;
   max-width: 640px;
-  animation: fade-in ease-out 0.6s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  transition: 0.6s ease-out;
+  opacity: 0;
 }
 
 footer {
@@ -144,11 +143,6 @@ a:hover {
     display: inline-block;
   }
 }
-
-@keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
 </style>
 </head>
 
@@ -164,7 +158,7 @@ a:hover {
   <div class="main" id="main">
     <h2>Blood Dropping System</h2>
     <h3><i>Commission, 15/6/2021</i></h3>
-    <img src="images/blood_drop.png">
+    <img src="images/blood_drop.png" id="blood_drop" onload="document.getElementById('blood_drop').style.opacity='1'">
     <p>This is a commissioned blood puddle dropping system with blur effect. It's using raycasting and mesh parts. Blur effect and puddles are starting appearing when humanoid's health is less than 40. You can visit <a href="https://www.roblox.com/games/6950181427/">demo</a> place here.</p>
   </div>
 <footer>
