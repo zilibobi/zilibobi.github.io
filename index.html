@@ -1,80 +1,195 @@
 <!DOCTYPE html>
-<html>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
+<html lang="en">
+<head>
 
-<title>Home</title>
+<title>Portfolio</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
 
-    * {
-        padding: 0;
-        margin: 0;
-    }
+* {
+  box-sizing: border-box;
+}
+.dark {
+   background: #545454;
+   color: #efefef;
+}
 
-    body {
-        background-color: #141a20;
-    }
+body {
+  font-family: 'Overpass', sans-serif;
+  margin: 0;
+}
 
-    .navBar {
-        font-family: 'Overpass', sans-serif;
-    }
+.header {
+  padding: 60px;
+  text-align: center;
+  background-color: #ffd310; /* for older versions */
+  background-image: linear-gradient(90deg, #ff9900, #ffd310);
+  color: #ffffff;
+}
 
-    ul {
-        font-family: 'Overpass', sans-serif;
-        float: right;
-        margin-top: 15px;
-        text-align: center;
-    }
+.header h1 {
+  font-size: 40px;
+}
 
-    body header {
-        background-color: #0d1116;
-        position: sticky;
-        position: -webkit-sticky;
-        top: 0;
-        height: 50px;
-        box-shadow: 0px 0px 5px black;
-    }
+.header a {
+  box-sizing: border-box;
+  margin: 10px;
+  color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 100px;
+  text-align: center;
+  padding: 10px 25px;
+  text-decoration: none;
+  transition: 0.3s ease-out;
+}
 
-    ul a {
-        text-decoration: none;
-        color: #fff;
-        transition: 0.3s;
-        padding: 20px;
-        font-size: 18px;
-    }
+a:hover {
+  color: #ffd310;
+  background-color: #fff;
+}
 
-    .textLogo {
-        float: left;
-        padding: 10px 30px;
-        vertical-align: middle;
-    }
+.row {  
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
 
-    .textLogo a {
-        text-decoration: none;
-        color: #fff;
-        transition: 0.3s;
-        font-size: 26px;
-        text-align: center;
-    }
+.main {   
+  -ms-flex: 70%;
+  flex: 70%;
+  background-color: #ffffff;
+  padding: 20px;
+}
 
-    ul a:hover {
-        color: #c4c4c4;
-    }
+.main h2 {
+  font-size: 30px;
+}
 
-</style> 
+.main h3 {
+  font-size: 17px;
+  color: #8d8d8d;
+}
+
+.main p {
+  max-width: 650px;
+}
+
+img {
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  max-width: 640px;
+}
+
+footer {
+  width: 100%;
+  background-color: #ffd310; /* for older versions */
+  background-image: linear-gradient(90deg, #ff9900, #ffd310);
+  color: white;
+  text-align: center;
+}
+
+.btn {
+  background-color: #feb410;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.dark-mode-button {
+  box-sizing: border-box;
+  color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 100px;
+  text-align: center;
+  padding: 10px 25px;
+  transition: 0.3s ease-out;
+}
+
+.dark-mode-button:hover {
+  color: #ffd310;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .header a {
+    display: inline-block;
+  }
+}
+
+</style>
+</head>
 
 <body>
-    <header>
-        <div class="navBar">
-            <div class="textLogo"><a href="#">zilibobi</a></div>
-            <ul>
-                <a href="#">Home</a>
-                <a href="projects">Projects</a>
-                <a href="community">Community</a>
-            </ul>
-        </div>
-    </header>
+<div class="header">
+  <button class="btn dark-mode-button" onclick="changeLight()" id="btnModeSwitch">Dark Mode</button>
+  <h1>My Portfolio</h1>
+  <a href="https://www.roblox.com/users/617750257/profile">Roblox</a>
+  <a href="discord.html">Discord</a>
+  <a href="https://github.com/zilibobi">Github</a>
+</div>
+<div class="row">
+  <div class="main" id="main">
+    <h2>Blood Dropping System</h2>
+    <h3><i>Commission, 15/6/2021</i></h3>
+    <img src="images/blood_drop.png">
+    <p>This is a commissioned blood puddle dropping system with blur effect. It's using raycasting and mesh parts. Blur effect and puddles are starting appearing when humanoid's health is less than 40.</p>
+  </div>
+<footer>
+  <p>© 2021 • zilibobi • All rights reserved</p>
+</footer>
+</div>
+
+<script>
+function setColor(elmId, clr) {
+  var elem = document.getElementById(elmId);
+  elem.style.color = clr
+}
+
+function setBColor(elmId, clr) {
+  var elem = document.getElementById(elmId) ;
+  elem.style.backgroundColor = clr
+}
+
+(function() {
+  if (localStorage.getItem("mode") === "dark") {
+    document.getElementById("btnModeSwitch").innerHTML = "Light Mode";
+    document.body.style.backgroundColor = "#262736";
+    document.body.style.color = "#fff";
+    setColor("main", "#ffffff");
+    setBColor("main", "#262736");
+  } else { 
+    document.getElementById("btnModeSwitch").innerHTML = "Dark Mode";
+  }
+})();
+
+function changeLight() {
+  if (localStorage.getItem("mode") === "dark") {
+    localStorage.setItem("mode", "light")
+    document.body.style.backgroundColor = "#fff";
+    document.body.style.color = "black";
+    setColor("main", "black");
+    setBColor("main", "#fff");
+    document.getElementById("btnModeSwitch").innerHTML = "Dark Mode";
+  } else {
+    localStorage.setItem("mode", "dark")
+    document.body.style.backgroundColor = "#262736";
+    document.body.style.color = "#fff";
+    setColor("main", "#fff");
+    setBColor("main", "#262736");
+    document.getElementById("btnModeSwitch").innerHTML = "Light Mode";
+  }
+}
+</script>
 </body>
 </html>
