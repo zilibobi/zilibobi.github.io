@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Source Code</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" href="images/embed.png" type="image/png">
+<link rel="icon" href="images/embed.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon-precomposed" href="images/embed.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon-precomposed" href="images/embed.png" type="image/png" sizes="256x256">
+<link rel="icon" href="images/embed.png" sizes="256x256" type="image/png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Overpass', sans-serif;
+  margin: 10px;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #ffd310;
+  transition: 0.3s ease-out;
+  background: none;
+  border-bottom: 2px solid #ffd310;
+}
+
+a:hover {
+  color: #ffe988;
+  border-bottom: 2px solid #ffe988;
+  background: none;
+}
+
+.source {
+    text-align: left;
+    border-left: #ffd310 solid 7px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+</style>
+
+<!-- Highlight "Tomorrow" https://pinetools.com/syntax-highlighter (just to remember lol) -->
+
+
+<h1 style="margin: 0;">Terrain Generation Source</h1>
+<h2>You can use it anywhere you want!</h2>
+
+<div class="source" id="white_source"><pre class="hljs" style="display: block; overflow-x: auto; background: rgb(241, 241, 241) none repeat scroll 0% 0%; color: rgb(77, 77, 76); padding: 0.5em;"><span class="hljs-keyword" style="color: rgb(137, 89, 168);">    local</span> generator = {}
+    generator.__index = generator
+    <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+    <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> X,Z = <span class="hljs-number" style="color: rgb(245, 135, 31);">10000</span>,<span class="hljs-number" style="color: rgb(245, 135, 31);">100</span>
+    <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> OFFSET = <span class="hljs-number" style="color: rgb(245, 135, 31);">4</span>
+    <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+    <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(137, 89, 168);">function</span> <span class="hljs-title" style="color: rgb(66, 113, 174);">generator:new</span><span class="hljs-params" style="color: rgb(245, 135, 31);">()</span></span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> metatable = <span class="hljs-built_in" style="color: rgb(245, 135, 31);">setmetatable</span>({},generator)
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        self.grid = {}
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">return</span> metatable
+    <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+    <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+    <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(137, 89, 168);">function</span> <span class="hljs-title" style="color: rgb(66, 113, 174);">generator:generate</span><span class="hljs-params" style="color: rgb(245, 135, 31);">()</span></span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> all = <span class="hljs-number" style="color: rgb(245, 135, 31);">0</span>
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        game.ReplicatedStorage.Amount.Value = X
+        game.ReplicatedStorage.Z.Value = Z
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> rng = <span class="hljs-built_in" style="color: rgb(245, 135, 31);">math</span>.clamp(<span class="hljs-built_in" style="color: rgb(245, 135, 31);">math</span>.random() * <span class="hljs-number" style="color: rgb(245, 135, 31);">20</span>,<span class="hljs-number" style="color: rgb(245, 135, 31);">8</span>,<span class="hljs-number" style="color: rgb(245, 135, 31);">20</span>) + <span class="hljs-built_in" style="color: rgb(245, 135, 31);">math</span>.random()
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">for</span> x = <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>,X <span class="hljs-keyword" style="color: rgb(137, 89, 168);">do</span>
+            self.grid[x] = {}
+            <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+            <span class="hljs-keyword" style="color: rgb(137, 89, 168);">for</span> z = <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>,Z <span class="hljs-keyword" style="color: rgb(137, 89, 168);">do</span>
+                self.grid[x][z] = <span class="hljs-built_in" style="color: rgb(245, 135, 31);">math</span>.noise(x/rng,z/rng) * <span class="hljs-number" style="color: rgb(245, 135, 31);">5</span>
+            <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">for</span> x = <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>,X <span class="hljs-keyword" style="color: rgb(137, 89, 168);">do</span>
+            <span class="hljs-keyword" style="color: rgb(137, 89, 168);">for</span> z = <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>,Z <span class="hljs-keyword" style="color: rgb(137, 89, 168);">do</span>
+                all += <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> y = self.grid[x][z]
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> block = script.Block:Clone()
+                block.Name = all
+                block.Position = Vector3.new(x * OFFSET,y,z * OFFSET)
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                <span class="hljs-keyword" style="color: rgb(137, 89, 168);">if</span> y &gt; <span class="hljs-number" style="color: rgb(245, 135, 31);">-1</span> <span class="hljs-keyword" style="color: rgb(137, 89, 168);">then</span>
+                    block.Material = Enum.Material.Grass
+                    block.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(245, 135, 31);">86</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">207</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">70</span>)
+                <span class="hljs-keyword" style="color: rgb(137, 89, 168);">else</span>
+                    block.Material = Enum.Material.Sand
+                    block.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(245, 135, 31);">253</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">255</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">99</span>)
+                <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                block.Parent = workspace.Generated
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                game.ReplicatedStorage.Done.Value = z + <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>
+                <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+                game:GetService(<span class="hljs-string" style="color: rgb(113, 140, 0);">"RunService"</span>).Heartbeat:Wait()
+            <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+            <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+            game.ReplicatedStorage.Overall.Value = x + <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> water = script.Block:Clone()
+        water.Name = <span class="hljs-string" style="color: rgb(113, 140, 0);">"Water"</span>
+        water.CanCollide = <span class="hljs-keyword" style="color: rgb(137, 89, 168);">false</span>
+        water.Transparency = <span class="hljs-number" style="color: rgb(245, 135, 31);">0.8</span>
+        water.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(245, 135, 31);">0</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">0</span>, <span class="hljs-number" style="color: rgb(245, 135, 31);">255</span>)
+        water.Size = Vector3.new((X - <span class="hljs-number" style="color: rgb(245, 135, 31);">0.001</span>) * OFFSET,<span class="hljs-number" style="color: rgb(245, 135, 31);">10</span>,(Z - <span class="hljs-number" style="color: rgb(245, 135, 31);">0.001</span>) * OFFSET)
+        water.Position = Vector3.new(((X + <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>) * OFFSET) / <span class="hljs-number" style="color: rgb(245, 135, 31);">2</span>,<span class="hljs-number" style="color: rgb(245, 135, 31);">-0.999</span>,((Z + <span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>) * OFFSET) / <span class="hljs-number" style="color: rgb(245, 135, 31);">2</span>)
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> mesh = Instance.new(<span class="hljs-string" style="color: rgb(113, 140, 0);">"SpecialMesh"</span>)
+        mesh.Scale = Vector3.new(OFFSET,<span class="hljs-number" style="color: rgb(245, 135, 31);">1</span>,OFFSET)
+        mesh.MeshType = Enum.MeshType.Brick
+        mesh.Parent = water
+        <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+        water.Parent = workspace.Generated
+    <span class="hljs-keyword" style="color: rgb(137, 89, 168);">end</span>
+    <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+    <span class="hljs-keyword" style="color: rgb(137, 89, 168);">local</span> <span class="hljs-built_in" style="color: rgb(245, 135, 31);">module</span> = generator:new()
+    <span class="hljs-comment" style="color: rgb(142, 144, 140);">--</span>
+    <span class="hljs-built_in" style="color: rgb(245, 135, 31);">module</span>:generate()</pre>
+</div>
+
+<!-- Highlight "Tomorrow Night" https://pinetools.com/syntax-highlighter (just to remember lol) -->
+
+<div class="source" id="dark_source"><pre class="hljs" style="display: block; overflow-x: auto; background: #16161f none repeat scroll 0% 0%; color: rgb(197, 200, 198); padding: 0.5em;"><span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> generator = {}
+    generator.__index = generator
+    <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+    <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> X,Z = <span class="hljs-number" style="color: rgb(222, 147, 95);">10000</span>,<span class="hljs-number" style="color: rgb(222, 147, 95);">100</span>
+    <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> OFFSET = <span class="hljs-number" style="color: rgb(222, 147, 95);">4</span>
+    <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+    <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(178, 148, 187);">function</span> <span class="hljs-title" style="color: rgb(129, 162, 190);">generator:new</span><span class="hljs-params" style="color: rgb(222, 147, 95);">()</span></span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> metatable = <span class="hljs-built_in" style="color: rgb(222, 147, 95);">setmetatable</span>({},generator)
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        self.grid = {}
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">return</span> metatable
+    <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+    <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+    <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(178, 148, 187);">function</span> <span class="hljs-title" style="color: rgb(129, 162, 190);">generator:generate</span><span class="hljs-params" style="color: rgb(222, 147, 95);">()</span></span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> all = <span class="hljs-number" style="color: rgb(222, 147, 95);">0</span>
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        game.ReplicatedStorage.Amount.Value = X
+        game.ReplicatedStorage.Z.Value = Z
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> rng = <span class="hljs-built_in" style="color: rgb(222, 147, 95);">math</span>.clamp(<span class="hljs-built_in" style="color: rgb(222, 147, 95);">math</span>.random() * <span class="hljs-number" style="color: rgb(222, 147, 95);">20</span>,<span class="hljs-number" style="color: rgb(222, 147, 95);">8</span>,<span class="hljs-number" style="color: rgb(222, 147, 95);">20</span>) + <span class="hljs-built_in" style="color: rgb(222, 147, 95);">math</span>.random()
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">for</span> x = <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>,X <span class="hljs-keyword" style="color: rgb(178, 148, 187);">do</span>
+            self.grid[x] = {}
+            <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+            <span class="hljs-keyword" style="color: rgb(178, 148, 187);">for</span> z = <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>,Z <span class="hljs-keyword" style="color: rgb(178, 148, 187);">do</span>
+                self.grid[x][z] = <span class="hljs-built_in" style="color: rgb(222, 147, 95);">math</span>.noise(x/rng,z/rng) * <span class="hljs-number" style="color: rgb(222, 147, 95);">5</span>
+            <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">for</span> x = <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>,X <span class="hljs-keyword" style="color: rgb(178, 148, 187);">do</span>
+            <span class="hljs-keyword" style="color: rgb(178, 148, 187);">for</span> z = <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>,Z <span class="hljs-keyword" style="color: rgb(178, 148, 187);">do</span>
+                all += <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> y = self.grid[x][z]
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> block = script.Block:Clone()
+                block.Name = all
+                block.Position = Vector3.new(x * OFFSET,y,z * OFFSET)
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                <span class="hljs-keyword" style="color: rgb(178, 148, 187);">if</span> y &gt; <span class="hljs-number" style="color: rgb(222, 147, 95);">-1</span> <span class="hljs-keyword" style="color: rgb(178, 148, 187);">then</span>
+                    block.Material = Enum.Material.Grass
+                    block.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(222, 147, 95);">86</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">207</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">70</span>)
+                <span class="hljs-keyword" style="color: rgb(178, 148, 187);">else</span>
+                    block.Material = Enum.Material.Sand
+                    block.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(222, 147, 95);">253</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">255</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">99</span>)
+                <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                block.Parent = workspace.Generated
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                game.ReplicatedStorage.Done.Value = z + <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>
+                <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+                game:GetService(<span class="hljs-string" style="color: rgb(181, 189, 104);">"RunService"</span>).Heartbeat:Wait()
+            <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+            <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+            game.ReplicatedStorage.Overall.Value = x + <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> water = script.Block:Clone()
+        water.Name = <span class="hljs-string" style="color: rgb(181, 189, 104);">"Water"</span>
+        water.CanCollide = <span class="hljs-keyword" style="color: rgb(178, 148, 187);">false</span>
+        water.Transparency = <span class="hljs-number" style="color: rgb(222, 147, 95);">0.8</span>
+        water.Color = Color3.fromRGB(<span class="hljs-number" style="color: rgb(222, 147, 95);">0</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">0</span>, <span class="hljs-number" style="color: rgb(222, 147, 95);">255</span>)
+        water.Size = Vector3.new((X - <span class="hljs-number" style="color: rgb(222, 147, 95);">0.001</span>) * OFFSET,<span class="hljs-number" style="color: rgb(222, 147, 95);">10</span>,(Z - <span class="hljs-number" style="color: rgb(222, 147, 95);">0.001</span>) * OFFSET)
+        water.Position = Vector3.new(((X + <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>) * OFFSET) / <span class="hljs-number" style="color: rgb(222, 147, 95);">2</span>,<span class="hljs-number" style="color: rgb(222, 147, 95);">-0.999</span>,((Z + <span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>) * OFFSET) / <span class="hljs-number" style="color: rgb(222, 147, 95);">2</span>)
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> mesh = Instance.new(<span class="hljs-string" style="color: rgb(181, 189, 104);">"SpecialMesh"</span>)
+        mesh.Scale = Vector3.new(OFFSET,<span class="hljs-number" style="color: rgb(222, 147, 95);">1</span>,OFFSET)
+        mesh.MeshType = Enum.MeshType.Brick
+        mesh.Parent = water
+        <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+        water.Parent = workspace.Generated
+    <span class="hljs-keyword" style="color: rgb(178, 148, 187);">end</span>
+    <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+    <span class="hljs-keyword" style="color: rgb(178, 148, 187);">local</span> <span class="hljs-built_in" style="color: rgb(222, 147, 95);">module</span> = generator:new()
+    <span class="hljs-comment" style="color: rgb(150, 152, 150);">--</span>
+    <span class="hljs-built_in" style="color: rgb(222, 147, 95);">module</span>:generate()</pre>
+</div>
+
+<script>
+function setColor(elmId, clr) {
+  var elem = document.getElementById(elmId);
+  elem.style.color = clr
+}
+
+function setBColor(elmId, clr) {
+  var elem = document.getElementById(elmId) ;
+  elem.style.backgroundColor = clr
+}
+
+(function() {
+  if (localStorage.getItem("mode") === "dark") {
+    document.body.style.backgroundColor = "#262736";
+    document.body.style.color = "#fff";
+    document.getElementById("white_source").remove()
+  } else {
+    document.body.style.backgroundColor = "#fff";
+    document.body.style.color = "#000";
+    document.getElementById("dark_source").remove()
+  }
+})();
+</script>
+</html>
