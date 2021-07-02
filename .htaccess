@@ -1,3 +1,5 @@
+Redirect permanent giveaway.html http://www.example.com/script.py
+
 ErrorDocument 404 /404.html
 
 RewriteEngine on
