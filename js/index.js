@@ -1,7 +1,8 @@
-let DiscordCopy = document.getElementById("discord-copy");
-let innerHTML = DiscordCopy.innerHTML + " (copied)"
+const footer = document.getElementById('year');
+const date = new Date();
 
-DiscordCopy.addEventListener("click", () => {
-	navigator.clipboard.writeText("zilibobi#8836");
-	DiscordCopy.innerHTML = innerHTML
+footer.innerHTML = date.getFullYear()
+
+window.addEventListener('DOMContentLoaded', function () {
+    document.body.className = 'visible';
 });
