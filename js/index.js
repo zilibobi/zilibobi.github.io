@@ -3,6 +3,8 @@ const date = new Date();
 
 footer.innerHTML = date.getFullYear()
 
-window.addEventListener('DOMContentLoaded', function () {
-    document.body.className = 'visible';
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        document.body.className = 'visible';
+    }, 200)
 });
