@@ -6,5 +6,5 @@ footer.innerHTML = date.getFullYear()
 window.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
         document.body.className = 'visible';
-    }, 200)
+    }, 500)
 });
