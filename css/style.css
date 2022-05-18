@@ -1,8 +1,8 @@
 :root {
 	--light-grey: #eeeeee;
-    --dark-grey: #686868;
+	--dark-grey: #686868;
 	--dark: #2e2e2e;
-    --darker: #292929;
+	--darker: #292929;
 	--accent: #009fff;
 }
 
@@ -43,7 +43,7 @@ h1 {
 
 .hidden {
     opacity: 0;
-  }
+}
 
 .visible {
     opacity: 1;
@@ -53,59 +53,6 @@ h1 {
 .grey {
     color: var(--dark-grey);
     font-size: 15px;
-}
-
-.card {
-    width: 100%;
-    display: flex;
-}
-
-.card > .info-list {
-    font-size: 20px;
-    margin-left: 20px;
-    list-style-type: none;
-    width: 100%;
-}
-
-.info-list li:not(:first-child) {
-    margin-top: 10px;
-}
-
-.card > .profile {
-    background-color: var(--dark);
-	display: flex;
-	flex-direction: column;
-    float: left;
-    width: 400px;
-    text-decoration: none;
-}
-
-.card > .profile .background {
-    width: 100%;
-    border-radius: 6px 6px 0 0;
-}
-
-.card > .profile .title {
-    background-color: var(--darker);
-    color: var(--light-grey);
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 0 0 6px 6px;
-    transition: background-color 0.2s ease;
-}
-
-.card > .profile .title:hover {
-    background-color: var(--accent);
-}
-
-.info-link {
-    color: var(--accent);
-    text-decoration: none;
-    transition: margin-left 0.2s ease;
-}
-
-.info-link:hover {
-    margin-left: 10px;
 }
 
 .link {
@@ -148,25 +95,5 @@ h1 {
 @media only screen and (max-width: 1000px) {
     .outer {
         width: 90%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .card {
-        flex-wrap: wrap;
-    }
-
-    .card > .profile .background {
-        width: 100%;
-        max-width: none;
-    }
-
-    .card > .profile {
-        width: 100%;
-    }
-
-    .card > .info-list {
-        margin-left: 0;
-        margin-top: 20px;
     }
 }
