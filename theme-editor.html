@@ -115,12 +115,13 @@
       border-radius: 8px;
       right: 8px;
       position: absolute;
-      color: var(--txt-v2);
+      color: var(--txt-v1);
     }
 
     .dropdown :first-child {
       font-size: 16px;
       border-radius: 8px 8px 0 0;
+      color: var(--txt-v2);
     }
 
     .dropdown :last-child {
@@ -308,7 +309,20 @@
           <div class="top">
             <h1>Card Title</h1>
             <div class="dropdown">
-              <p>Dropdown</p>
+              <p>Dropdown
+                <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="18" height="18"
+                  style="float: right; margin-top: 2px; fill: var(--txt-v2)">
+                  <style>
+                    .s0 {
+                      fill: var(--txt-v2);
+                    }
+                  </style>
+                  <path class="s0"
+                    d="m364.7 269.9c10.7 12.7 9 31.7-3.7 42.3-12.7 10.7-31.6 9-42.2-3.7l-132.5-157.8c-10.6-12.7-9-31.6 3.7-42.3 12.7-10.6 31.7-9 42.3 3.7z" />
+                  <path class="s0"
+                    d="m186.1 111.6c10.6-12.7 29.5-14.3 42.2-3.7 12.7 10.7 14.4 29.6 3.7 42.3l-132.4 157.8c-10.6 12.7-29.6 14.4-42.3 3.7-12.7-10.6-14.3-29.6-3.7-42.3z" />
+                </svg>
+              </p>
               <p>Item 1</p>
               <p>Item 2</p>
               <p>Item 3</p>
@@ -433,11 +447,22 @@
         },
       };
 
+      let edit = false;
+
+      addEventListener("beforeunload", (event) => {
+        if (edit) {
+          event.preventDefault();
+          return event.returnValue = "";
+        }
+      });
+
       colors.forEach((picker) => {
         const rgb = (picker.dataset.type === "main" ? things.main[picker.dataset.name] : things.main.accents.main[picker.dataset.name]).replace(/ /g, "").split(",")
         picker.value = `#${parseInt(rgb[0]).toString(16)}${parseInt(rgb[1]).toString(16)}${parseInt(rgb[2]).toString(16)}`;
 
         picker.addEventListener("input", () => {
+          edit = true;
+
           const r = parseInt(picker.value.substr(1, 2), 16);
           const g = parseInt(picker.value.substr(3, 2), 16);
           const b = parseInt(picker.value.substr(5, 2), 16);
