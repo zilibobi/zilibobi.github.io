@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Theme Editor - UI Tools</title>
+
+  <style>
+    html {
+      color-scheme: dark;
+    }
+
+    :root {
+      --bg: rgb(46, 46, 46);
+      --bg-l1: rgb(50, 50, 50);
+      --bg-l1-sel: rgb(58, 58, 58);
+      --bg-l1-st: rgb(63, 63, 63);
+      --bg-d1: rgb(40, 40, 40);
+      --bg-d2: rgb(40, 40, 40);
+      --txt: rgb(255, 255, 255);
+      --txt-v1: rgb(100, 100, 100);
+      --txt-v2: rgb(100, 100, 100);
+      --r-ov: rgba(255, 255, 255);
+      --a: rgb(226, 72, 61);
+      --a-sel: rgb(226, 62, 61);
+      --a-ov: rgba(255, 255, 255);
+      --txt-a: rgb(255, 255, 255);
+    }
+
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+      color: var(--txt);
+      background-color: rgb(30, 30, 30);
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 32px;
+      min-height: 100vh;
+      margin: 64px 0;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    h1 {
+      font-weight: 600;
+    }
+
+    .main {
+      display: flex;
+      gap: 64px
+    }
+
+    .widget {
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+      background-color: var(--bg);
+      box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+      border: var(--bg) solid 8px;
+      overflow-y: auto;
+      width: 275px;
+      height: 275px;
+      border-radius: 8px;
+      padding: 0 8px 0 0;
+      margin-top: 8px;
+    }
+
+    .widget::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .widget::-webkit-scrollbar-track {
+      background: var(--bg-d2);
+      border-radius: 0.5em;
+    }
+
+    .widget::-webkit-scrollbar-thumb {
+      background: var(--bg-l1-st);
+      border-radius: 0.5em;
+    }
+
+    .card {
+      width: 100%;
+      border-radius: 8px;
+      background-color: var(--bg-d1);
+    }
+
+    .top {
+      display: flex;
+      padding: 8px;
+      position: relative;
+    }
+
+    .top h1 {
+      font-size: 21px;
+    }
+
+    .dropdown {
+      width: 50%;
+      height: fit-content;
+      background-color: var(--bg-l1);
+      border-radius: 8px;
+      right: 8px;
+      position: absolute;
+      color: var(--txt-v2);
+    }
+
+    .dropdown :first-child {
+      font-size: 16px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .dropdown :last-child {
+      border-radius: 0 0 8px 8px;
+    }
+
+    .dropdown :nth-child(3) {
+      background-color: var(--bg-l1-st);
+    }
+
+    .dropdown p {
+      padding: 1px 8px 1px 8px;
+      transition: background-color 0.25s ease;
+    }
+
+    .dropdown p:hover {
+      background-color: var(--bg-l1-sel);
+    }
+
+    .buttons {
+      padding: 0 8px 8px 8px;
+    }
+
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button {
+      width: fit-content;
+      border-radius: 8px;
+      padding: 4px 16px 4px 16px;
+      background-color: var(--a);
+      transition: background-color 0.25s ease;
+    }
+
+    .button:hover {
+      background-color: var(--a-sel);
+    }
+
+    span {
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: var(--a-ov);
+      transform: scale(0);
+      position: absolute;
+      opacity: 0.5;
+    }
+
+    .rippleAnimation {
+      animation: ripple 0.5s ease-out;
+    }
+
+    @keyframes ripple {
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    .editor {
+      margin-top: 8px;
+    }
+
+    .color {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      width: 50px;
+      height: 50px;
+    }
+
+    .color::-webkit-color-swatch,
+    .color-moz-color-swatch {
+      border-radius: 8px;
+      border: none;
+      box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+    }
+
+    .property {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .property p {
+      font-size: 25px;
+    }
+
+    .output {
+      width: 100%;
+      height: 400px;
+      margin-top: 16px;
+      background-color: rgb(46, 46, 46);
+      border-radius: 8px;
+      padding: 8px;
+      border: 0;
+      color: #fff;
+      outline: none;
+      resize: none;
+      border: rgb(46, 46, 46) solid 8px;
+      font-family: monospace;
+      font-size: 16px;
+    }
+
+    .output::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .output::-webkit-scrollbar-track {
+      background: rgb(40, 40, 40);
+      border-radius: 0.5em;
+    }
+
+    .output::-webkit-scrollbar-thumb {
+      background: rgb(63, 63, 63);
+      border-radius: 0.5em;
+    }
+
+    .download {
+      width: 100%;
+      text-align: center;
+      background-color: rgb(46, 46, 46);
+      border-radius: 8px;
+      padding: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div>
+      <h1>Theme</h1>
+      <div class="editor">
+        <div class="property">
+          <input data-name="bg" data-type="main" type="color" class="color" />
+          <p>bg</p>
+        </div>
+        <div class="property">
+          <input data-name="bg-l1" data-type="main" type="color" class="color" />
+          <p>bg-l1</p>
+        </div>
+        <div class="property">
+          <input data-name="bg-l1-sel" data-type="main" type="color" class="color" />
+          <p>bg-l1-sel</p>
+        </div>
+        <div class="property">
+          <input data-name="bg-l1-st" data-type="main" type="color" class="color" />
+          <p>bg-l1-st</p>
+        </div>
+        <div class="property">
+          <input data-name="bg-d1" data-type="main" type="color" class="color" />
+          <p>bg-d1</p>
+        </div>
+        <div class="property">
+          <input data-name="bg-d2" data-type="main" type="color" class="color" />
+          <p>bg-d2</p>
+        </div>
+        <div class="property">
+          <input data-name="txt" data-type="main" type="color" class="color" />
+          <p>txt</p>
+        </div>
+        <div class="property">
+          <input data-name="txt-v1" data-type="main" type="color" class="color" />
+          <p>txt-v1</p>
+        </div>
+        <div class="property">
+          <input data-name="txt-v2" data-type="main" type="color" class="color" />
+          <p>txt-v2</p>
+        </div>
+        <div class="property">
+          <input data-name="r-ov" data-type="main" type="color" class="color" />
+          <p>r-ov</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <div class="widget">
+        <div class="card" style="z-index: 1">
+          <div class="top">
+            <h1>Card Title</h1>
+            <div class="dropdown">
+              <p>Dropdown</p>
+              <p>Item 1</p>
+              <p>Item 2</p>
+              <p>Item 3</p>
+            </div>
+          </div>
+          <div class="buttons">
+            <p class="ripple button">Button</p>
+          </div>
+        </div>
+        <div class="card" style="z-index: 0">
+          <div class="top">
+            <h1>Card Title</h1>
+          </div>
+          <div class="buttons">
+            <p class="ripple button">Button</p>
+          </div>
+        </div>
+        <div class="card" style="z-index: 0">
+          <div class="top">
+            <h1>Card Title</h1>
+          </div>
+          <div class="buttons">
+            <p class="ripple button">Button</p>
+          </div>
+        </div>
+        <div class="card" style="z-index: 0">
+          <div class="top">
+            <h1>Card Title</h1>
+          </div>
+          <div class="buttons">
+            <p class="ripple button">Button</p>
+          </div>
+        </div>
+        <div class="card" style="z-index: 0">
+          <div class="top">
+            <h1>Card Title</h1>
+          </div>
+          <div class="buttons">
+            <p class="ripple button">Button</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: auto;">
+        <h1 style="margin-bottom: 8px;">Accent</h1>
+        <div class="property">
+          <input data-name="a" type="color" class="color" />
+          <p>a</p>
+        </div>
+        <div class="property">
+          <input data-name="a-sel" type="color" class="color" />
+          <p>a-sel</p>
+        </div>
+        <div class="property">
+          <input data-name="a-ov" type="color" class="color" />
+          <p>a-ov</p>
+        </div>
+        <div class="property">
+          <input data-name="txt-a" type="color" class="color" />
+          <p>txt-a</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1>JSON Output</h1>
+    <textarea class="output" readonly></textarea>
+    <div class="download">Download</a>
+    </div>
+
+    <script>
+      const colors = document.querySelectorAll("input");
+      const output = document.querySelector(".output");
+      const download = document.querySelector(".download");
+
+      const things = {
+        accent: "main",
+        theme: "main",
+
+        main: {
+          bg: "46, 46, 46",
+          "bg-l1": "50, 50, 50",
+          "bg-l1-sel": "58, 58, 58",
+          "bg-l1-st": "63, 63, 63",
+          "bg-d1": "40, 40, 40",
+          "bg-d2": "40, 40, 40",
+          txt: "255, 255, 255",
+          "txt-v1": "100, 100, 100",
+          "txt-v2": "100, 100, 100",
+          "r-ov": "255, 255, 255",
+
+          pattern: {
+            "main-widget": {
+              "p-img-id": 0,
+              "p-tp": 0.5,
+              "p-size": "50, 50",
+              animated: true,
+            },
+
+            "anchor-widget": {
+              "p-img-id": 0,
+              "p-tp": 0.75,
+              "p-size": "50, 50",
+              animated: true,
+            },
+
+            "properties-widget": {
+              "p-img-id": 0,
+              "p-tp": 0.75,
+              "p-size": "50, 50",
+              animated: true,
+            },
+          },
+
+          accents: {
+            main: {
+              a: "226, 72, 61",
+              "a-sel": "226, 62, 61",
+              "a-ov": "255, 255, 255",
+              "txt-a": "255, 255, 255",
+            },
+          },
+        },
+      };
+
+      colors.forEach((picker) => {
+        const rgb = (picker.dataset.type === "main" ? things.main[picker.dataset.name] : things.main.accents.main[picker.dataset.name]).replace(/ /g, "").split(",")
+        picker.value = `#${parseInt(rgb[0]).toString(16)}${parseInt(rgb[1]).toString(16)}${parseInt(rgb[2]).toString(16)}`;
+
+        picker.addEventListener("input", () => {
+          const r = parseInt(picker.value.substr(1, 2), 16);
+          const g = parseInt(picker.value.substr(3, 2), 16);
+          const b = parseInt(picker.value.substr(5, 2), 16);
+
+          const rgb = `${r}, ${g}, ${b}`;
+
+          if (picker.dataset.type === "main") {
+            things.main[picker.dataset.name] = rgb;
+          } else {
+            things.main.accents.main[picker.dataset.name] = rgb;
+          }
+
+          output.value = JSON.stringify(things, null, 2);
+          document.documentElement.style.setProperty("--" + picker.dataset.name, picker.value);
+        }, false);
+      });
+
+      download.addEventListener("click", () => {
+        const link = document.createElement("a");
+        const file = new Blob([JSON.stringify(things, null, 2)], { type: "text/plain" });
+
+        link.href = URL.createObjectURL(file);
+        link.download = "style.json";
+
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }, false);
+
+      output.value = JSON.stringify(things, null, 2);
+
+      // ripple
+      const buttons = document.querySelectorAll(".ripple");
+      const widget = document.querySelector(".widget");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          let posX = btn.offsetLeft;
+          let posY = btn.offsetTop;
+          let buttonWidth = btn.offsetWidth;
+          let buttonHeight = btn.offsetHeight;
+
+          let ripple = document.createElement("span");
+          btn.appendChild(ripple);
+
+          if (buttonWidth >= buttonHeight) {
+            buttonHeight = buttonWidth;
+          } else {
+            buttonWidth = buttonHeight;
+          }
+
+          var x = event.pageX - posX - buttonWidth / 2;
+          var y = event.pageY - posY - buttonHeight / 2;
+
+          ripple.style.width = `${buttonWidth}px`;
+          ripple.style.height = `${buttonHeight}px`;
+          ripple.style.top = `${y + widget.scrollTop}px`;
+          ripple.style.left = `${x}px`;
+
+          ripple.classList.add("rippleAnimation");
+
+          setTimeout(() => {
+            btn.removeChild(ripple);
+          }, 1000);
+        }, false);
+      });
+    </script>
+</body>
+
+</html>
