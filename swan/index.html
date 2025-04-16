@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>The Flying Swan</title>
+
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        background-color: #000;
+        color: #fff;
+
+        font-family: "Press Start 2P", system-ui;
+
+        height: 100%;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 30px;
+      }
+
+      canvas {
+        width: 1000px;
+        height: 1000px;
+
+        border: 1px dashed #303030;
+      }
+
+      .bottom {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  <script type="module" crossorigin src="./index-95spassx.js"></script></head>
+  <body>
+    <h1>The Flying Swan</h1>
+    <canvas></canvas>
+    <div class="bottom">
+      <h1 id="score">SCORE: 0</h1>
+      <h1 id="hiscore">HI: 0</h1>
+    </div>
+  </body>
+  
+</html>
