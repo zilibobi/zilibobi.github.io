@@ -12,15 +12,12 @@
 
     <title>The Flying Swan</title>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-
     <style>
       * {
         margin: 0;
         box-sizing: border-box;
+
+        touch-action: manipulation;
       }
 
       html,
@@ -41,11 +38,17 @@
         gap: 30px;
       }
 
-      canvas {
-        width: 800px;
-        height: 800px;
+      h1 {
+        font-size: 3vmin; /* scales with screen size */
+      }
 
+      canvas {
+        width: 100%;
+        height: auto;
+        max-width: 70vmin; /* vmin picks the smaller of vw or vh */
+        max-height: 70vmin;
         border: 1px dashed #303030;
+        display: block;
       }
 
       .bottom {
@@ -55,7 +58,7 @@
         justify-content: space-between;
       }
     </style>
-  <script type="module" crossorigin src="./index-hhyawwbv.js"></script></head>
+  <script type="module" crossorigin src="./index-8rvmerce.js"></script></head>
   <body>
     <h1>The Flying Swan</h1>
     <canvas></canvas>
